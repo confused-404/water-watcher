@@ -10,6 +10,7 @@
         <div>
             Waterwatcher:
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('user', id=current_user.id) }}">Profile</a>
             <a href="{{ url_for('log') }}">Log Water Usage</a>
             <a href="{{ url_for('leaderboards') }}">Leaderboards</a>
             <a href="{{ url_for('logout') }}">Logout</a>

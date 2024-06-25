@@ -55,9 +55,17 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/user/<id>')
+@login_required
+def user(id):
+    user = db.first_or_404(sa.select(User).where(User.id == id))
+    water_usages = db.session.query(WaterUsage).filter(WaterUsage.user == user).all()
+    return render_template('user.html', title='User', user=user, water_usages=water_usages)
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    print(current_user.id)
     all_water_usages = db.session.query(WaterUsage).all()
     return render_template('dashboard.html', title='Dashboard', water_usages=all_water_usages)
 
