@@ -1,0 +1,8 @@
+{
+    "shower": 9.5,
+    "washing_dishes": 6,
+    "washing_clothes": 15,
+    "flushing_toilet": 6,
+    "drinking": 0.1,
+    "other": 4
+}

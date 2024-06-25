@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField, StringField, PasswordField, BooleanField, SubmitField
+from wtforms import FloatField, SelectField, StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 import sqlalchemy as sa
 from app import db
@@ -28,5 +28,18 @@ class RegistrationForm(FlaskForm):
         
 class WaterUsageForm(FlaskForm):
     time_taken = FloatField('Time taken in Minutes', validators=[DataRequired()])
-    usage_type = StringField('Usage Type', validators=[DataRequired()])
+    usage_type = SelectField('Usage Type', validators=[DataRequired()], choices=[
+        ('shower', 'Shower'),
+        ('washing_dishes', 'Washing Dishes'),
+        ('washing_clothes', 'Washing Clothes'),
+        ('flushing_toilet', 'Flushing Toilet'),
+        ('drinking', 'Drinking'),
+        ('other', 'Other'),
+    ])
     submit = SubmitField('Submit')
+    
+    def validate_time_taken(self, time_taken):
+        if time_taken.data <= 0:
+            raise ValidationError('Time taken must be greater than 0')
+        if not isinstance(time_taken.data, float):
+            raise ValidationError('Time taken must be a number')
