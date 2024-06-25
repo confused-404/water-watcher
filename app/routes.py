@@ -71,7 +71,6 @@ def leaderboards():
 def log():
     form = WaterUsageForm()
     if form.validate_on_submit():
-        print('form submitted')
         amount = form.time_taken.data * usage_rates[form.usage_type.data]
         water_usage = WaterUsage(time_taken=form.time_taken.data, usage_type=form.usage_type.data, amount=amount, user=current_user)
         db.session.add(water_usage)
