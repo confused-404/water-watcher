@@ -33,7 +33,7 @@ def load_user(id):
     
 class WaterUsage(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    amount: so.Mapped[float] = so.mapped_column(sa.Float(3))
+    amount: so.Mapped[float] = so.mapped_column(sa.Float(3), index=True)
     usage_type: so.Mapped[str] = so.mapped_column(sa.String(120))
     timestamp: so.Mapped[datetime] = so.mapped_column(
         index=True, default=lambda: datetime.now(timezone.utc))
