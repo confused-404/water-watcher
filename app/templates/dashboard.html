@@ -1,0 +1,8 @@
+{% extends "authed_base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.first_name }}!</h1>
+    {% for water_usage in water_usages %}
+    <div><p>{{ water_usage.user.email }} used: <b>{{ water_usage.amount }} liters</b></p></div>
+    {% endfor %}
+{% endblock %}

@@ -8,10 +8,10 @@ from app.models import User, WaterUsage
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def index():
-    all_water_usages = db.session.query(WaterUsage).all()
-    return render_template('index.html', title='Home', water_usages=all_water_usages)
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    return render_template('index.html', title='Home')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -50,3 +50,14 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    all_water_usages = db.session.query(WaterUsage).all()
+    return render_template('dashboard.html', title='Dashboard', water_usages=all_water_usages)
+
+@app.route('/leaderboards')
+@login_required
+def leaderboards():
+    return render_template('leaderboards.html', title='Leaderboards')

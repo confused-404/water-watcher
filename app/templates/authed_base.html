@@ -1,0 +1,28 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - Waterwatcher</title>
+        {% else %}
+        <title>Waterwatcher</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            Waterwatcher:
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('leaderboards') }}">Leaderboards</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

@@ -1,8 +1,5 @@
-{% extends "base.html" %}
+{% extends "anonymous_base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ current_user.first_name }}!</h1>
-    {% for water_usage in water_usages %}
-    <div><p>{{ water_usage.user.email }} used: <b>{{ water_usage.amount }} liters</b></p></div>
-    {% endfor %}
+    Hello! Welcome to Waterwatcher. This is a web application that allows you to monitor your water usage. You can register for an account, log in, and log out. You can also view your water usage data and set up alerts for when you reach a certain threshold. Enjoy!
 {% endblock %}
