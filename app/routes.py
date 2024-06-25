@@ -61,3 +61,8 @@ def dashboard():
 @login_required
 def leaderboards():
     return render_template('leaderboards.html', title='Leaderboards')
+
+@app.route('/log')
+@login_required
+def log():
+    return render_template('log.html', title='Log')

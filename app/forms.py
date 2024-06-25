@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import FloatField, StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 import sqlalchemy as sa
 from app import db
@@ -25,3 +25,8 @@ class RegistrationForm(FlaskForm):
             User.email == email.data))
         if user is not None:
             raise ValidationError('Please use a different email address.')
+        
+class WaterUsageForm(FlaskForm):
+    time_taken = FloatField('Time taken in Minutes', validators=[DataRequired()])
+    usage_type = StringField('Usage Type', validators=[DataRequired()])
+    submit = SubmitField('Submit')

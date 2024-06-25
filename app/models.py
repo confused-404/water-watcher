@@ -33,7 +33,7 @@ def load_user(id):
     
 class WaterUsage(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    amount: so.Mapped[float] = so.mapped_column(sa.Float(3), index=True)
+    time_taken: so.Mapped[float] = so.mapped_column(sa.Float(3))
     usage_type: so.Mapped[str] = so.mapped_column(sa.String(120))
     timestamp: so.Mapped[datetime] = so.mapped_column(
         index=True, default=lambda: datetime.now(timezone.utc))
@@ -43,4 +43,4 @@ class WaterUsage(db.Model):
     user: so.Mapped[User] = so.relationship(back_populates='water_usages')
 
     def __repr__(self):
-        return f'<WaterUsage of {self.amount} liters by {self.usage_type}>'
+        return f'<WaterUsage of {self.usage_type} for {self.time_taken} minutes>'
