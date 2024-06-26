@@ -2,7 +2,7 @@
     <tr valign="top">
         <td><img src="{{ water_usage.user.avatar(32) }}"></td>
         <td>
-            {{ water_usage.user.first_name }} performed {{ water_usage.usage_type }} for {{ water_usage.time_taken }} minutes,<br>using <b>{{
+            <a href="{{ url_for('user', id=water_usage.user.id) }}">{{ water_usage.user.first_name }}</a> performed {{ water_usage.usage_type }} for {{ water_usage.time_taken }} minutes,<br>using <b>{{
             water_usage.amount }} liters</b> of water
         </td>
     </tr>

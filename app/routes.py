@@ -86,3 +86,8 @@ def log():
         flash("Water usage logged!")
         return redirect(url_for('dashboard'))
     return render_template('log.html', title='Log', form=form)
+
+@app.route('/charts')
+@login_required
+def charts():
+    return render_template('charts.html', title='Charts')
