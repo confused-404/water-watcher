@@ -1,0 +1,2 @@
+FLASK_APP=water_watcher.py
+FLASK_DEBUG=1
