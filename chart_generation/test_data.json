@@ -1,0 +1,27 @@
+[
+    {
+        "usage_type": "Shower",
+        "time_spent": 15.0,
+        "date": "1"
+    },
+    {
+        "usage_type": "Watering Plants",
+        "time_spent": 10.5,
+        "date": "1"
+    },
+    {
+        "usage_type": "Shower",
+        "time_spent": 7.5,
+        "date": "1"
+    },
+    {
+        "usage_type": "Washing Clothes",
+        "time_spent": 23.0,
+        "date": "1"
+    },
+    {
+        "usage_type": "Shower",
+        "time_spent": 20.0,
+        "date": "2"
+    }
+]
