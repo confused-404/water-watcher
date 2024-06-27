@@ -1,6 +1,20 @@
 {% extends "authed_base.html" %}
 
 {% block content %}
-    <h1>Charts</h1>
-    <div id="chart_div"></div>
+    <h1>Your Personal Water Usage</h1>
+    
+    <div>
+        <h2>Weekly Water Usage</h2>
+        <img src="{{ url_for('static', filename=chart_paths['week']) }}" alt="Weekly Water Usage">
+    </div>
+    
+    <div>
+        <h2>Monthly Water Usage</h2>
+        <img src="{{ url_for('static', filename=chart_paths['month']) }}" alt="Monthly Water Usage">
+    </div>
+    
+    <div>
+        <h2>Yearly Water Usage</h2>
+        <img src="{{ url_for('static', filename=chart_paths['year']) }}" alt="Yearly Water Usage">
+    </div>
 {% endblock %}

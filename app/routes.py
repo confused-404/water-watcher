@@ -1,6 +1,8 @@
 from urllib.parse import urlsplit
 from flask import flash, redirect, render_template, request, url_for
+import pandas as pd
 from app import app, db
+from app.chart_generation.stacked_bar import bucket_data, save_chart
 from app.forms import LoginForm, RegistrationForm, WaterUsageForm
 from flask_login import current_user, login_required, login_user, logout_user
 import sqlalchemy as sa
@@ -90,4 +92,31 @@ def log():
 @app.route('/charts')
 @login_required
 def charts():
-    return render_template('charts.html', title='Charts')
+    user = db.session.get(User, current_user.id)
+    query = user.water_usages.select()
+    water_usages = db.session.scalars(query)
+    
+    input_dict = []
+    for water_usage in water_usages:
+        input_dict.append(
+            {
+                "usage_type": water_usage.usage_type,
+                "amount": water_usage.amount,
+                "timestamp": water_usage.timestamp,
+            }
+        )
+        
+    raw_data = pd.DataFrame(input_dict)
+    # raw_data = pd.read_json("app/test_data.json")
+    
+    paths = {}
+    week_data, bucket_labels = bucket_data(raw_data, 7)
+    paths['week'] = save_chart(week_data, bucket_labels, "week", current_user.id).replace("app/", "")
+    
+    month_data, bucket_labels = bucket_data(raw_data, 30)
+    paths['month'] = save_chart(month_data, bucket_labels, "month", current_user.id).replace("app/", "")
+    
+    year_data, bucket_labels = bucket_data(raw_data, 365)
+    paths['year'] = save_chart(year_data, bucket_labels, "year", current_user.id).replace("app/", "")
+    
+    return render_template('charts.html', title='Charts', chart_paths=paths)
