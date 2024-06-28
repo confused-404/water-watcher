@@ -9,6 +9,8 @@ import sqlalchemy as sa
 from app.models import User, WaterUsage
 import json
 
+from app.tips_generation.generate_tips import generate_tips
+
 with open('app/usage_rates.json', 'r') as f:
     usage_rates = json.load(f)
 
@@ -120,3 +122,9 @@ def charts():
     paths['year'] = save_chart(year_data, bucket_labels, "year", current_user.id).replace("app/", "")
     
     return render_template('charts.html', title='Charts', chart_paths=paths)
+
+@app.route('/tips')
+@login_required
+def tips():
+    tips = generate_tips()
+    return render_template('tips.html', title='Tips', tips=tips)

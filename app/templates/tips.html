@@ -1,0 +1,14 @@
+{% extends "authed_base.html" %}
+
+{% block title %}
+Water Saving Tips - Water Watcher
+{% endblock %}
+
+{% block content %}
+<h1>Water Saving Tips</h1>
+<ul>
+    {% for tip in tips %}
+        <li>{{ tip }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

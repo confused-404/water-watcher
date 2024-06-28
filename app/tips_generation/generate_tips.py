@@ -1,6 +1,6 @@
 import json
 import os
-import llm_utils as llm
+import app.tips_generation.llm_utils as llm
 
 def generate_tips():
     tips_file_path = "app/static/tips/saved_tips.json"
