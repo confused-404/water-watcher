@@ -107,7 +107,7 @@ def charts():
         )
         
     raw_data = pd.DataFrame(input_dict)
-    # raw_data = pd.read_json("app/test_data.json")
+    raw_data = pd.read_json("app/test_data.json")
     
     paths = {}
     week_data, bucket_labels = bucket_data(raw_data, 7)

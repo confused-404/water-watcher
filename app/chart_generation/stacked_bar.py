@@ -83,6 +83,7 @@ def save_chart(chart_data, bucket_labels, type, user_id):
     chart_path = f'app/static/charts/personal_{user_id}_{str(datetime.now().date())}_{type}.png'
     
     plt.savefig(chart_path)
+    plt.close('all')
     
     return chart_path.replace('static/', '')
 

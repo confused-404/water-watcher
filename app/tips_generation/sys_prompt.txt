@@ -1,0 +1,1 @@
+Please provide a list of 10 practical tips for saving water. Each tip should be on a new line and should be concise and actionable. Do not write "1. [tip]\n2. tip," just write the tips on each line.
