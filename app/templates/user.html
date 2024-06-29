@@ -1,9 +1,9 @@
 {% extends "authed_base.html" %}
 
 {% block content %}
-    <table>
+<table class="table table-hover">
         <tr valign="top">
-            <td><img src="{{ user.avatar(128) }}"></td>
+            <td width="140px"><img src="{{ user.avatar(128) }}"></td>
             <td>
                 <h1>{{ user.first_name }} {{ user.last_name[0] }}.</h1>
             </td>

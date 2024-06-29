@@ -1,23 +1,7 @@
 {% extends "authed_base.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
 
 {% block content %}
     <h1> Log your water usage! </h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.time_taken.label }}<br>
-            {{ form.time_taken(size=32) }}<br>
-            {% for error in form.time_taken.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.usage_type.label }}<br>
-            {{ form.usage_type(size=32) }}<br>
-            {% for error in form.usage_type.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    {{ wtf.quick_form(form) }}
 {% endblock %}
