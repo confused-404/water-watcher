@@ -5,6 +5,9 @@ import pandas as pd
 from textwrap import wrap
 
 def bucket_data(raw_data, days, max_bars=12):
+    if (len(raw_data) == 0):
+        return pd.DataFrame(), []
+    
     raw_data['date'] = [d.to_pydatetime().date() for d in raw_data['timestamp']]
     
     end_date = datetime.now().date()
@@ -70,6 +73,9 @@ def bucket_data(raw_data, days, max_bars=12):
     return sorted_data, bucket_labels
 
 def save_chart(chart_data, bucket_labels, type, user_id):
+    if (len(chart_data) == 0):
+        return None
+    
     chart = chart_data.plot(kind='bar', stacked=True)
     
     # configure chart

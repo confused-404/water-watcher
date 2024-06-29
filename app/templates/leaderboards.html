@@ -1,6 +1,23 @@
 {% extends "authed_base.html" %}
 
 {% block content %}
-    <h1>Leaderboards</h1>
-    <p>Coming soon!</p>
+    <h1>Water Usage Leaderboards</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Total Water Usage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rank, user in enumerated_leaderboard %}
+            <tr>
+                <td>{{ rank }}</td>
+                <td>{{ user[1] }} {{ user[2][0] }}.</td>
+                <td>{{ user[3] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

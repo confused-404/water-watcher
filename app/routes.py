@@ -76,7 +76,17 @@ def dashboard():
 @app.route('/leaderboards')
 @login_required
 def leaderboards():
-    return render_template('leaderboards.html', title='Leaderboards')
+    def get_leaderboard_data():
+        return enumerate((db.session.query(User.id, User.first_name, User.last_name, sa.func.sum(WaterUsage.amount))
+            .join(WaterUsage, User.id == WaterUsage.user_id)
+            .group_by(User.id)
+            .having(sa.func.sum(WaterUsage.amount) > 0)
+            .order_by(sa.func.sum(WaterUsage.amount))
+            .all()
+        ), start=1)
+    
+    global_leaderboard = get_leaderboard_data()
+    return render_template('leaderboards.html', title='Leaderboards', enumerated_leaderboard=global_leaderboard)
 
 @app.route('/log', methods=['GET', 'POST'])
 @login_required
@@ -113,13 +123,16 @@ def charts():
     
     paths = {}
     week_data, bucket_labels = bucket_data(raw_data, 7)
-    paths['week'] = save_chart(week_data, bucket_labels, "week", current_user.id).replace("app/", "")
+    if len(bucket_labels) != 0:
+        paths['week'] = save_chart(week_data, bucket_labels, "week", current_user.id).replace("app/", "")
     
     month_data, bucket_labels = bucket_data(raw_data, 30)
-    paths['month'] = save_chart(month_data, bucket_labels, "month", current_user.id).replace("app/", "")
+    if len(bucket_labels) != 0:
+        paths['month'] = save_chart(month_data, bucket_labels, "month", current_user.id).replace("app/", "")
     
     year_data, bucket_labels = bucket_data(raw_data, 365)
-    paths['year'] = save_chart(year_data, bucket_labels, "year", current_user.id).replace("app/", "")
+    if len(bucket_labels) != 0:
+        paths['year'] = save_chart(year_data, bucket_labels, "year", current_user.id).replace("app/", "")
     
     return render_template('charts.html', title='Charts', chart_paths=paths)
 

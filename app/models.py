@@ -1,7 +1,10 @@
 from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
+from sqlalchemy import select, func
+from sqlalchemy.ext.hybrid import hybrid_property
 import sqlalchemy.orm as so
+from sqlalchemy.sql.functions import sum as sql_sum
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -31,6 +34,9 @@ class User(UserMixin, db.Model):
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
+    
+    def sum_water_usage(self):
+        return sum(usage.amount for usage in self.water_usages)    
     
 @login.user_loader
 def load_user(id):
