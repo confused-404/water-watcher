@@ -1,8 +1,11 @@
 from datetime import datetime, timedelta
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from textwrap import wrap
+
+import pytz
 
 def bucket_data(raw_data, days, max_bars=12):
     if (len(raw_data) == 0):
@@ -10,8 +13,13 @@ def bucket_data(raw_data, days, max_bars=12):
     
     raw_data['date'] = [d.to_pydatetime().date() for d in raw_data['timestamp']]
     
-    end_date = datetime.now().date()
+    print(raw_data.head())
+    
+    end_date = datetime.now(pytz.UTC).date()
+    print("end_date:", end_date)
+    
     start_date = end_date - timedelta(days=days)
+    print("start_date:", start_date)
     
     filtered_data = raw_data[(raw_data['date'] >= start_date) & (raw_data['date'] <= end_date)]
     
@@ -86,7 +94,7 @@ def save_chart(chart_data, bucket_labels, type, user_id):
     plt.subplots_adjust(bottom=0.25) # make room for x-axis labels
     plt.legend(title='Usage Type', loc='upper right')
     
-    chart_path = f'app/static/charts/personal_{user_id}_{str(datetime.now().date())}_{type}.png'
+    chart_path = f'app/static/charts/personal_{user_id}_{str(datetime.now(pytz.UTC).date())}_{type}.png'
     
     plt.savefig(chart_path)
     plt.close('all')
