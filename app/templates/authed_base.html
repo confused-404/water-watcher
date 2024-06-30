@@ -60,6 +60,9 @@
     </div>
   </nav>
   <div class="container mt-3">
+    {% if request.endpoint != 'dashboard' %}
+    <button class="btn btn-secondary mb-3" onclick="window.history.back();">Back</button>
+    {% endif %}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
